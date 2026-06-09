@@ -1,0 +1,27 @@
+name: Build Samples
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Typst
+        uses: typst-community/setup-typst@v5
+
+      - name: Build samples
+        run: python3 build_samples.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add samples/
+          git diff --cached --quiet || (git commit -m "chore: update sample PDFs" && git push)
