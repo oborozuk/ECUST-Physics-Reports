@@ -24,5 +24,5 @@
 3. 运行命令：
 
     ```bash
-    typst c 实验名称.typ
+    typst c --root ./src --font-path ./fonts ./src/实验名称/实验名称.typ
     ```
